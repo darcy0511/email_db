@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import sqlite3
+import traceback
 
 class EmailDbPipeline(object):
     
@@ -13,10 +14,10 @@ class EmailDbPipeline(object):
     #    pass
 
     def open_spider(self, spider):
-        print spider.name
-        print spider.custom_settings
+        #print spider.name
+        #print spider.custom_settings
         db_name = spider.custom_settings["sqlite3_db"]
-        print "---------start-------"
+        #print "---------start-------"
         
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
@@ -27,7 +28,7 @@ class EmailDbPipeline(object):
             self.cur.execute(sql)
             self.cur.commit()
         except Exception, e:
-            pass
+            traceback.print_exc()
 
         fields = ",".join(spider.custom_settings['fields_list'])
         values = ",".join(['?']*len(spider.custom_settings['fields_list']))

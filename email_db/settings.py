@@ -28,9 +28,9 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 0.5
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
@@ -55,15 +55,16 @@ ROBOTSTXT_OBEY = True
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #'email_db.middlewares.MyCustomDownloaderMiddleware': 543,
 DOWNLOADER_MIDDLEWARES = {
-#'email_db.middlewares.MyCustomDownloaderMiddleware': 543,
+    'email_db.middlewares.MyCustomDownloaderMiddleware': None,
     'email_db.middlewares.RandomUserAgent': 300,
 }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+    'scrapy.extensions.telnet.TelnetConsole': None,
+    'scrapy.extensions.statsmailer.StatsMailer':300,
+}
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
@@ -93,4 +94,20 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Enable and configure LOG 
-LOG_LEVEL = 'INFO'
+#LOG_LEVEL = 'INFO'
+
+# MEM
+MEMDEBUG_ENABLED = True
+MEMDEBUG_NOTIFY = ['guinumi@126.com']
+MEMUSAGE_NOTIFY_MAIL = ['guinumi@126.com']
+
+# STATES
+STATSMAILER_RCPTS = ['guinumi@126.com']
+
+# MAILER
+MAIL_HOST = 'smtp.126.com'
+MAIL_FROM = 'guinumi@126.com'
+MAIL_PORT = 465
+MAIL_USER = 'guinumi@126.com'
+MAIL_PASS = 'Ss15050850452'
+MAIL_SSL = True
